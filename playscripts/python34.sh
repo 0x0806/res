@@ -7,10 +7,11 @@ sudo apt-get install zlib1g-dev libsqlite3-dev tk-dev ;
 sudo apt-get install libssl-dev openssl ;
 sudo apt-get install libffi-dev ;
 
-####
-sudo yum -y install gcc gcc-c++ 
+####centos 7
+sudo yum -y groupinstall 'Development Tools'
 sudo yum -y install zlib zlib-devel
-sudo yum -y install libffi-devel 
+sudo yum -y install libffi-devel
+
 requirements
 
 tar -Jxvf Python-*
