@@ -7,10 +7,14 @@ sudo apt-get install zlib1g-dev libsqlite3-dev tk-dev ;
 sudo apt-get install libssl-dev openssl ;
 sudo apt-get install libffi-dev ;
 
-####centos 7
+####centos 7######python3
 sudo yum -y groupinstall 'Development Tools'
 sudo yum -y install zlib zlib-devel
 sudo yum -y install libffi-devel
+
+####centos 7######jdk
+sudo yum -y install java-openjdk*
+
 
 requirements
 
