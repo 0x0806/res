@@ -1,0 +1,2 @@
+sudo echo "blacklist pcspkr" | sudo tee -a /etc/modprobe.d/blacklist-pcspkr.conf
+sudo rmmod pcspkr
