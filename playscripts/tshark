@@ -143,15 +143,19 @@ tshark -q -r <*.pcap> -z <argument>
      wsp,stat
      
      ####
-     read connection time:
+     1. read connection time:
      tshark -r *.pcap -T fields -E header=y -e ip.src -e ip.dst -e ip.proto -e udp.dstport -e ip.len -e frame.time_delta_displayed ip.dst
+     
+     ###
+     2. sort uniq (1.)
+     cat *.* | uniq | cut -f 2 | sort | uniq -c | sort -nr | head
      
      ####
      read request:
-     tshark -r *.pcapng -Y http.request -T fields -e http.host -e ip.dst -e http.request.full_uri | tee get_request.txt
+     tshark -r *.pcapng -Y http.request -T fields -e http.host -e ip.dst -e http.request.full_uri | tee -a *.*
      
      ####
      simple > in sed (ascii out):
      tshark -x -r *.pcap | sed -n 's/^[0-9a-f]*\s\(\(\s[0-9a-f][0-9a-f]\)\{1,16\}\).*$/\1/p'
-     for c in `cat raw.txt(ascii dump)` ; do printf "\x$c"; done > out.txt
+     for c in `cat raw.txt(ascii dump)` ; do printf "\x$c"; done > *.*
  
