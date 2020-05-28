@@ -43,3 +43,8 @@ while True:
      Multi-homed control points are allowed to choose to send discovery messages on any, 
      some or all of its UPnP-enabled interfaces.
      """
+        #query all: $ python ssdp-query.py
+        #query select: $ python ssdp-query.py 192.168.1.12
+        #wrong request: $ python ssdp-query.py 100.42.x.x
+        #wrong request-more-info: $ python ssdp-query.py 100.42.x.x ssdp:all
+        
