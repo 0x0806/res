@@ -29,5 +29,17 @@ while True:
     print "[+] %s\n%s" % (addr, data)
     
      """
-     When a control point is added to the network, the UPnP discovery protocol allows that control point to search for devices of interest on the network. It does this by multicasting on the reserved address and port (239.255.255.250:1900) a search message with a pattern, or target, equal to a type or identifier for a device or service. Responses from devices contain discovery messages essentially identical to those advertised by newly connected devices; the former are unicast while the latter are multicast. Control points can also send a unicast search message to a known IP address and port 1900 or the port indicated by SEARCHPORT.UPNP.ORG, to verify the existence of UPnP device(s) and service(s) at the IP address. For example, a unicast search may be used to quickly check whether a known UPnP device or service is still available on the network. Multi-homed control points are allowed to choose to send discovery messages on any, some or all of its UPnP-enabled interfaces.
+     When a control point is added to the network, 
+     the UPnP discovery protocol allows that control point to search for devices
+     of interest on the network. 
+     It does this by multicasting on the reserved address and port (239.255.255.250:1900) a search message with a pattern, 
+     or target, equal to a type or identifier for a device or service. 
+     Responses from devices contain discovery messages essentially identical to those advertised by newly connected devices; 
+     the former are unicast while the latter are multicast. 
+     Control points can also send a unicast search message to a known IP address and port 1900 or 
+     the port indicated by SEARCHPORT.UPNP.ORG, to verify the existence of UPnP device(s) and service(s) at the IP address. 
+     For example, 
+     a unicast search may be used to quickly check whether a known UPnP device or service is still available on the network. 
+     Multi-homed control points are allowed to choose to send discovery messages on any, 
+     some or all of its UPnP-enabled interfaces.
      """
