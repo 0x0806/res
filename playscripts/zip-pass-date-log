@@ -1,0 +1,1 @@
+zip -r -P pass /tmp/log_`date "+%Y-%m-%dT%H:%M:%S"`.zip /var/log/*
