@@ -1,7 +1,7 @@
 wget https://github.com/a-shvedov/tmp-res/blob/master/src/dtrx.tar.gz
 tar -xvf dtrx-7.1.tar.gz
 cd dtrx-7.1
-python setup.py install --prefix=/usr/local
+sudo python setup.py install --prefix=/usr/local
 
 ###opt:
 
