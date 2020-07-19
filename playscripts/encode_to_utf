@@ -1,1 +1,0 @@
-find . -type f \( -name '*.glob'  \) -print0 | xargs -0 grep -l printf '^\xef\xbb\xbf' | xargs sed -i '1 s/^\xef\xbb\xbf//'
