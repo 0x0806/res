@@ -1,1 +1,0 @@
-perl -nle 's/([^\ ][^\ ])/0x$1,/g;print ' data2
