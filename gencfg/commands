@@ -1,3 +1,0 @@
-perl -nle 's/([^\ ][^\ ])/0x$1,/g;print ' data2
-
-./afl-fuzz -i ./in/ -o ./out  -- /home/user/netsniff-ng/trafgen/trafgen --out eth0
