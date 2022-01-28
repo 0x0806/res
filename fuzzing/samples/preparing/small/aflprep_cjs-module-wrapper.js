@@ -1,0 +1,11 @@
+'use strict';
+const assert = require('assert');
+const m = require('module');
+global.mwc = 0;
+const originalWrapper = m.wrapper;
+const patchedWrapper = {...m.wrapper};
+patchedWrapper[0] += 'global.mwc = (global.mwc || 0 ) + 1';
+m.wrapper = patchedWrapper;
+assert.strictEqual(mwc, 1);
+m.wrapper = originalWrapper;
+delete global.mwc;

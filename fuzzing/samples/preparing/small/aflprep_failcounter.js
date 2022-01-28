@@ -1,0 +1,1 @@
+new Countdown(2, () => {});

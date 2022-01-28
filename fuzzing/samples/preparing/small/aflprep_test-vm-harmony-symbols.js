@@ -1,0 +1,11 @@
+'use strict';
+const assert = require('assert');
+const vm = require('vm');
+let sandbox = {};
+vm.runInNewContext('this.Symbol = Symbol', sandbox);
+assert.strictEqual(typeof sandbox.Symbol, 'function');
+assert.notStrictEqual(sandbox.Symbol, Symbol);
+sandbox = { Symbol };
+vm.runInNewContext('this.Symbol = Symbol', sandbox);
+assert.strictEqual(typeof sandbox.Symbol, 'function');
+assert.strictEqual(sandbox.Symbol, Symbol);

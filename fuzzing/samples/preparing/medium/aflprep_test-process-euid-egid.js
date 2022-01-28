@@ -1,0 +1,51 @@
+'use strict';
+const assert = require('assert');
+if (common.isWindows) {
+  assert.strictEqual(process.geteuid, undefined);
+  assert.strictEqual(process.getegid, undefined);
+  assert.strictEqual(process.seteuid, undefined);
+  assert.strictEqual(process.setegid, undefined);
+  return;
+}
+if (!common.isMainThread)
+  return;
+assert.throws(() => {
+  process.seteuid({});
+}, {
+  code: 'ERR_INVALID_ARG_TYPE',
+  message: 'The "id" argument must be one of type number or string. ' +
+    'Received an instance of Object'
+});
+assert.throws(() => {
+  process.seteuid('fhqwhgadshgnsdhjsdbkhsdabkfabkveyb');
+}, {
+  code: 'ERR_UNKNOWN_CREDENTIAL',
+  message: 'User identifier does not exist: fhqwhgadshgnsdhjsdbkhsdabkfabkveyb'
+});
+if (common.isIBMi)
+  return;
+if (process.getuid() !== 0) {
+  process.getegid();
+  process.geteuid();
+  assert.throws(() => {
+    process.setegid('nobody');
+  assert.throws(() => {
+    process.seteuid('nobody');
+  return;
+}
+const oldgid = process.getegid();
+try {
+  process.setegid('nobody');
+} catch (err) {
+  if (err.message !== 'Group identifier does not exist: nobody') {
+    throw err;
+  } else {
+    process.setegid('nogroup');
+  }
+}
+const newgid = process.getegid();
+assert.notStrictEqual(newgid, oldgid);
+const olduid = process.geteuid();
+process.seteuid('nobody');
+const newuid = process.geteuid();
+assert.notStrictEqual(newuid, olduid);

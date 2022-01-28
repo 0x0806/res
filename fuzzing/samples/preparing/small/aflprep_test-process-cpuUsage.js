@@ -1,0 +1,13 @@
+'use strict';
+const assert = require('assert');
+const start = process.cpuUsage();
+const RUN_FOR_MS = 500;
+const SLOP_FACTOR = 2;
+const now = Date.now();
+while (Date.now() - now < RUN_FOR_MS);
+const diff = process.cpuUsage(start);
+const MICROSECONDS_PER_MILLISECOND = 1000;
+assert(diff.user >= 0);
+assert(diff.user <= SLOP_FACTOR * RUN_FOR_MS * MICROSECONDS_PER_MILLISECOND);
+assert(diff.system >= 0);
+assert(diff.system <= SLOP_FACTOR * RUN_FOR_MS * MICROSECONDS_PER_MILLISECOND);

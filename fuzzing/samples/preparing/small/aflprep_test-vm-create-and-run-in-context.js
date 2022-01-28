@@ -1,0 +1,16 @@
+'use strict';
+const assert = require('assert');
+const vm = require('vm');
+let context = vm.createContext();
+let result = vm.runInContext('"passed";', context);
+assert.strictEqual(result, 'passed');
+context = vm.createContext({ 'foo': 'bar', 'thing': 'lala' });
+assert.strictEqual(context.foo, 'bar');
+assert.strictEqual(context.thing, 'lala');
+result = vm.runInContext('var foo = 3;', context);
+assert.strictEqual(context.foo, 3);
+assert.strictEqual(context.thing, 'lala');
+const sandbox = { x: 1 };
+vm.createContext(sandbox);
+global.gc();
+vm.runInContext('x = 2', sandbox);

@@ -1,0 +1,42 @@
+'use strict';
+if (!common.hasIntl)
+  common.skip('missing Intl');
+const icu = internalBinding('icu');
+const assert = require('assert');
+assert(icu.hasConverter('utf-8'),
+       'hasConverter should report converter exists for utf-8');
+assert(!icu.hasConverter('x'),
+       'hasConverter should report converter does not exist for x');
+{
+  for (const [i, { ascii, unicode }] of tests.entries()) {
+    assert.strictEqual(ascii, icu.toASCII(unicode), `toASCII(${i + 1})`);
+    assert.strictEqual(unicode, icu.toUnicode(ascii), `toUnicode(${i + 1})`);
+    assert.strictEqual(ascii, icu.toASCII(icu.toUnicode(ascii)),
+                       `toASCII(toUnicode(${i + 1}))`);
+    assert.strictEqual(unicode, icu.toUnicode(icu.toASCII(unicode)),
+                       `toUnicode(toASCII(${i + 1}))`);
+  }
+}
+{
+  for (const [i, test] of fixtures.entries()) {
+    if (typeof test === 'string')
+    const { comment, input, output } = test;
+    let caseComment = `case ${i + 1}`;
+    if (comment)
+      caseComment += ` (${comment})`;
+    if (output === null) {
+      assert.throws(
+        () => icu.toASCII(input),
+        {
+          code: 'ERR_INVALID_ARG_VALUE',
+          name: 'TypeError',
+          message: 'Cannot convert name to ASCII'
+        }
+      );
+    } else {
+      assert.strictEqual(icu.toASCII(input), output, `ToASCII ${caseComment}`);
+      assert.strictEqual(icu.toASCII(input, true), output,
+                         `ToASCII ${caseComment} in lenient mode`);
+    }
+  }
+}

@@ -1,0 +1,11 @@
+'use strict';
+const assert = require('assert');
+const { MessageChannel } = require('worker_threads');
+const a = Buffer.from('hello world');
+const b = Buffer.from('hello world');
+assert.strictEqual(a.buffer, b.buffer);
+const length = a.length;
+const { port1 } = new MessageChannel();
+port1.postMessage(a, [ a.buffer ]);
+assert.strictEqual(a.buffer, b.buffer);
+assert.strictEqual(a.length, length);

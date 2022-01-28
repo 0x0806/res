@@ -1,0 +1,10 @@
+'use strict';
+const assert = require('assert');
+const http = require('http');
+const OutgoingMessage = http.OutgoingMessage;
+const msg = new OutgoingMessage();
+msg._implicitHeader = function() {};
+assert.strictEqual(msg.write('asd'), true);
+while (msg.write('asd'));
+const highwatermark = msg.writableHighWaterMark || getDefaultHighWaterMark();
+assert(msg.outputSize >= highwatermark);

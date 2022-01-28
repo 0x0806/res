@@ -1,0 +1,29 @@
+'use strict';
+if (!common.hasCrypto)
+  common.skip('missing crypto');
+const assert = require('assert');
+const http2 = require('http2');
+const server = http2.createServer();
+server.on('stream', common.mustCall((stream) => {
+  stream.write('abc', common.mustCall(() => {
+    stream.end('xyz');
+  }));
+  let actual = '';
+  stream.setEncoding('utf8');
+  stream.on('data', (chunk) => actual += chunk);
+  stream.on('end', common.mustCall(() => assert.strictEqual(actual, 'abcxyz')));
+}));
+server.listen(0, common.mustCall(() => {
+  const req = client.request({ ':method': 'POST' });
+  req.write('abc', common.mustCall(() => {
+    req.end('xyz');
+  }));
+  let actual = '';
+  req.setEncoding('utf8');
+  req.on('data', (chunk) => actual += chunk);
+  req.on('end', common.mustCall(() => assert.strictEqual(actual, 'abcxyz')));
+  req.on('close', common.mustCall(() => {
+    client.close();
+    server.close();
+  }));
+}));

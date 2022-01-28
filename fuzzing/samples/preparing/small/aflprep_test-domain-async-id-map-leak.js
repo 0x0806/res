@@ -1,0 +1,23 @@
+'use strict';
+const assert = require('assert');
+const async_hooks = require('async_hooks');
+const domain = require('domain');
+const EventEmitter = require('events');
+const isEnumerable = Function.call.bind(Object.prototype.propertyIsEnumerable);
+let d = domain.create();
+d.run(() => {
+  const resource = new async_hooks.AsyncResource('TestResource');
+  const emitter = new EventEmitter();
+  d.remove(emitter);
+  d.add(emitter);
+  emitter.linkToResource = resource;
+  assert.strictEqual(emitter.domain, d);
+  assert.strictEqual(isEnumerable(emitter, 'domain'), false);
+  assert.strictEqual(resource.domain, d);
+  assert.strictEqual(isEnumerable(resource, 'domain'), false);
+  onGC(resource, { ongc: common.mustCall() });
+  onGC(d, { ongc: common.mustCall() });
+  onGC(emitter, { ongc: common.mustCall() });
+});
+d = null;
+global.gc();

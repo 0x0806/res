@@ -1,0 +1,39 @@
+'use strict';
+if (!common.hasCrypto)
+  common.skip('missing crypto');
+const tls = require('tls');
+const cert =
+`-----BEGIN CERTIFICATE-----
+MIIDNDCCAp2gAwIBAgIJAJvXLQpGPpm7MA0GCSqGSIb3DQEBBQUAMHAxCzAJBgNV
+BAYTAkdCMRAwDgYDVQQIEwdHd3luZWRkMREwDwYDVQQHEwhXYXVuZmF3cjEUMBIG
+A1UEChMLQWNrbmFjayBMdGQxEjAQBgNVBAsTCVRlc3QgQ2VydDESMBAGA1UEAxMJ
+bG9jYWxob3N0MB4XDTA5MTEwMjE5MzMwNVoXDTEwMTEwMjE5MzMwNVowcDELMAkG
+A1UEBhMCR0IxEDAOBgNVBAgTB0d3eW5lZGQxETAPBgNVBAcTCFdhdW5mYXdyMRQw
+EgYDVQQKEwtBY2tuYWNrIEx0ZDESMBAGA1UECxMJVGVzdCBDZXJ0MRIwEAYDVQQD
+Ewlsb2NhbGhvc3QwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANdym7nGe2yw
+6LlJfJrQtC5TmKOGrSXiyolYCbGOy4xZI4KD31d3097jhlQFJyF+10gwkE62DuJe
+fLvBZDUsvLe1R8bzlVhZnBVn+3QJyUIWQAL+DsRj8P3KoD7k363QN5dIaA1GOAg2
+JnFaaPBjoXSkcjBwMQswCQYDVQQGEwJHQjEQMA4GA1UECBMHR3d5bmVkZDERMA8G
+A1UEBxMIV2F1bmZhd3IxFDASBgNVBAoTC0Fja25hY2sgTHRkMRIwEAYDVQQLEwlU
+ZXN0IENlcnQxEjAQBgNVBAMTCWxvY2FsaG9zdIIJAJvXLQpGPpm7MAwGA1UdEwQF
+MAMBAf8wDQYJKoZIhvcNAQEFBQADgYEAFxR7BA1mUlsYqPiogtxSIfLzHWh+s0bJ
+US7eCSHZsVo=
+-----END CERTIFICATE-----`;
+const key =
+`-----BEGIN RSA PRIVATE KEY-----
+MIICXgIBAAKBgQDXcpu5xntssOi5SXya0LQuU5ijhq0l4sqJWAmxjsuMWSOCg99X
+AgcdNEM94Zcug1gSspXtUu8exNQX4+PNVbadghZb1+OnUO4d3gvWfqvAnaXD3KV6
+7mSHz1I9uDvxkJev8sQgu1TKIyTOdqPH1tkCQQDPa6H1yYoj1Un0Q2Qa2Mg1kTjk
+sPWhSOb9VQjMXekI4Y2l8fqAVTS2Fn6+8jkVKxXBywSVCw==
+-----END RSA PRIVATE KEY-----`;
+function test(cert, key, cb) {
+  const server = tls.createServer({
+    cert,
+    key
+  }).listen(0, function() {
+    server.close(cb);
+  });
+}
+test(cert, key, common.mustCall(function() {
+  test(Buffer.from(cert), Buffer.from(key), common.mustCall());
+}));

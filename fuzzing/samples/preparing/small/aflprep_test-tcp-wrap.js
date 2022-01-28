@@ -1,0 +1,12 @@
+'use strict';
+const assert = require('assert');
+const { TCP, constants: TCPConstants } = internalBinding('tcp_wrap');
+const { UV_EINVAL } = internalBinding('uv');
+const handle = new TCP(TCPConstants.SOCKET);
+let err = handle.bind('0.0.0.0', 0);
+assert.strictEqual(err, 0);
+const out = {};
+handle.getsockname(out);
+err = handle.bind('0.0.0.0', out.port);
+assert.strictEqual(err, UV_EINVAL);
+handle.close();

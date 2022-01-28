@@ -1,0 +1,10 @@
+'use strict';
+if (common.isIBMi)
+  common.skip('On IBMi, the rss memory always returns zero');
+const assert = require('assert');
+const fs = require('fs');
+const files = [];
+while (files.length < 256)
+  files.push(fs.openSync(__filename, 'r'));
+const r = process.memoryUsage.rss();
+assert.strictEqual(r > 0, true);
