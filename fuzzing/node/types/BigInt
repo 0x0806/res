@@ -1,0 +1,2 @@
+const x = 2n ** 53n;
+const y = x + 1n;
