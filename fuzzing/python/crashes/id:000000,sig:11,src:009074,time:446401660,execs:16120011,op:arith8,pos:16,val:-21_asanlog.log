@@ -1,0 +1,25 @@
+Objects/object.c:767:24: runtime error: member access within null pointer of type 'PyObject' (aka 'struct _object')
+UndefinedBehaviorSanitizer:DEADLYSIGNAL
+==4130==ERROR: UndefinedBehaviorSanitizer: SEGV on unknown address 0x000000000008 (pc 0x000000504660 bp 0xc2b2ae3d27d4eb4f sp 0x7ffdfef16c70 T4130)
+==4130==The signal is caused by a READ memory access.
+==4130==Hint: address points to the zero page.
+    #0 0x50465f in PyObject_Hash /run/media/fuzz/target/Python/Python-3.9.9/Objects/object.c:767:24
+    #1 0x530393 in tuplehash /run/media/fuzz/target/Python/Python-3.9.9/Objects/tupleobject.c:367:27
+    #2 0x4c76b5 in PyDict_SetItem /run/media/fuzz/target/Python/Python-3.9.9/Objects/dictobject.c:1564:16
+    #3 0x6ea1ae in r_object /run/media/fuzz/target/Python/Python-3.9.9/Python/marshal.c:1230:17
+    #4 0x6ea180 in r_object /run/media/fuzz/target/Python/Python-3.9.9/Python/marshal.c:1222:19
+    #5 0x6ea180 in r_object /run/media/fuzz/target/Python/Python-3.9.9/Python/marshal.c:1222:19
+    #6 0x6e9fdb in r_object /run/media/fuzz/target/Python/Python-3.9.9/Python/marshal.c:1174:18
+    #7 0x6e3d1d in read_object /run/media/fuzz/target/Python/Python-3.9.9/Python/marshal.c:1445:9
+    #8 0x6e3a74 in PyMarshal_ReadObjectFromString /run/media/fuzz/target/Python/Python-3.9.9/Python/marshal.c:1562:14
+    #9 0x6e39f5 in PyMarshal_ReadLastObjectFromFile /run/media/fuzz/target/Python/Python-3.9.9/Python/marshal.c:1514:27
+    #10 0x70b260 in run_pyc_file /run/media/fuzz/target/Python/Python-3.9.9/Python/pythonrun.c:1271:9
+    #11 0x70b260 in pyrun_simple_file /run/media/fuzz/target/Python/Python-3.9.9/Python/pythonrun.c:441
+    #12 0x70b260 in PyRun_SimpleFileExFlags /run/media/fuzz/target/Python/Python-3.9.9/Python/pythonrun.c:483
+    #13 0x4486ad in pymain_run_file /run/media/fuzz/target/Python/Python-3.9.9/Modules/main.c:373:15
+    #14 0x4486ad in pymain_run_python /run/media/fuzz/target/Python/Python-3.9.9/Modules/main.c:598
+    #15 0x4486ad in Py_RunMain /run/media/fuzz/target/Python/Python-3.9.9/Modules/main.c:677
+    #16 0x44903d in pymain_main /run/media/fuzz/target/Python/Python-3.9.9/Modules/main.c:707:12
+    #17 0x44914b in Py_BytesMain /run/media/fuzz/target/Python/Python-3.9.9/Modules/main.c:731:12
+    #18 0x7e1aa22a12e0 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x202e0)
+    #19 0x422dd9 in _start (/run/media/fuzz/target/Python/Python-3.9.9/python+0x422dd9)
