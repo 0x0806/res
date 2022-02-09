@@ -1,5 +1,0 @@
-let test = 123;
-
-test = undefined;
-
-alert(test);

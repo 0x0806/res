@@ -1,1 +1,0 @@
-alert( "any_string" / 2 );

@@ -1,4 +1,0 @@
-let name = "World";
-
-alert( `Hello, ${name}!` );
-alert( `result: ${1 + 2}` );
