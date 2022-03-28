@@ -35,11 +35,11 @@ Attention at configure-section - change complier and other complier options
 
 %build
 
-./configure --prefix=%{resty_prefix}/%{dir_name}
-#	--with-cc='/usr/local/bin/afl-cc' \
-#	--with-cpp='/usr/local/bin/afl-c++' \
+./configure --prefix=%{resty_prefix}/%{dir_name} \
+	--with-cc='/usr/local/bin/afl-gcc' \
+	--with-cpp='/usr/local/bin/afl-g++'
 #	--with-cc-opt='-g -lasan -fsanitize=address' \
-#	--with-ld-opt='-g -lasan -fsanitize=address'
+#	--with-ld-opt='-lgcov'
 	
 make %{?_smp_mflags}
 
