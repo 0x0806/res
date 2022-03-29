@@ -1,15 +1,21 @@
 AFL_USE_ASAN=1 ASAN_OPTIONS=detect_leaks=0:handle_segv=0:alloc_dealloc_mismatch=0 AFL_PATH=/usr/local/lib/afl AS=/usr/local/bin/afl-as QA_RPATHS=$[ 0x0001|0x0002 ] rpmbuild -ba ./SPECS/openresty-1.19.9.1.spec 2>&1 | tee buildlog_afl+asan.log
 
 [user@localhost afl_x86_64]$ sudo rpm -i openresty-1.19.9-1.x86_64.rpm
+
 [user@localhost afl_x86_64]$ whereis openresty
 openresty: /usr/bin/openresty /usr/local/openresty
+
 [user@localhost afl_x86_64]$ file /usr/bin/openresty
 /usr/bin/openresty: symbolic link to `/usr/local/openresty/nginx/sbin/nginx'
 
+[root@localhost openresty-1.19.9.1]# file /usr/local/openresty/bin/openresty
+/usr/local/openresty/bin/openresty: symbolic link to `/usr/local/openresty/nginx/sbin/nginx'
+
+[root@localhost openresty-1.19.9.1]# /usr/local/openresty/bin/openresty -v
+nginx version: openresty/1.19.9.1
+
 [user@localhost afl_x86_64]$ /usr/local/openresty/nginx/sbin/nginx -v
 nginx version: openresty/1.19.9.1
-[user@localhost afl_x86_64]$
-
 
 [user@localhost afl_x86_64]$ objdump -S /usr/local/openresty/nginx/sbin/nginx | grep afl | head -n 5
   43f679:       48 8d 15 60 6b b4 00    lea    0xb46b60(%rip),%rdx        # f861e0 <__afl_global_area_ptr@@Base>
