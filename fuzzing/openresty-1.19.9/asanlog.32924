@@ -1,0 +1,24 @@
+
+=================================================================
+==32924== ERROR: AddressSanitizer: memcpy-param-overlap: memory ranges [0x60620000d900,0x60620000e65b) and [0x60620000dba5, 0x60620000e900) overlap
+    #0 0x7f66fa37da74 (/usr/lib64/libasan.so.0+0xea74)
+    #1 0x993654 (/usr/local/openresty/nginx/sbin/nginx+0x993654)
+    #2 0x997f01 (/usr/local/openresty/nginx/sbin/nginx+0x997f01)
+    #3 0x4d9948 (/usr/local/openresty/nginx/sbin/nginx+0x4d9948)
+    #4 0x5cd077 (/usr/local/openresty/nginx/sbin/nginx+0x5cd077)
+    #5 0x4d9948 (/usr/local/openresty/nginx/sbin/nginx+0x4d9948)
+    #6 0x5b1d1a (/usr/local/openresty/nginx/sbin/nginx+0x5b1d1a)
+    #7 0x4d9948 (/usr/local/openresty/nginx/sbin/nginx+0x4d9948)
+    #8 0x4c7be5 (/usr/local/openresty/nginx/sbin/nginx+0x4c7be5)
+    #9 0x42d2cd (/usr/local/openresty/nginx/sbin/nginx+0x42d2cd)
+    #10 0x7f66f8627554 (/usr/lib64/libc-2.17.so+0x22554)
+    #11 0x435cdc (/usr/local/openresty/nginx/sbin/nginx+0x435cdc)
+0x60620000d900 is located 0 bytes inside of 4096-byte region [0x60620000d900,0x60620000e900)
+allocated by thread T0 here:
+    #0 0x7f66fa385119 (/usr/lib64/libasan.so.0+0x16119)
+    #1 0x54ad26 (/usr/local/openresty/nginx/sbin/nginx+0x54ad26)
+0x60620000dba5 is located 677 bytes inside of 4096-byte region [0x60620000d900,0x60620000e900)
+allocated by thread T0 here:
+    #0 0x7f66fa385119 (/usr/lib64/libasan.so.0+0x16119)
+    #1 0x54ad26 (/usr/local/openresty/nginx/sbin/nginx+0x54ad26)
+==32924== ABORTING
